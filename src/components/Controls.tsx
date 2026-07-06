@@ -11,6 +11,7 @@ interface ControlsProps {
   showRootOverlay: boolean;
   onToggleShowPowerOverlay: (value: boolean) => void;
   onToggleShowRootOverlay: (value: boolean) => void;
+  showOverlaySection?: boolean;
 }
 
 export function Controls({
@@ -24,6 +25,7 @@ export function Controls({
   showRootOverlay,
   onToggleShowPowerOverlay,
   onToggleShowRootOverlay,
+  showOverlaySection = true,
 }: ControlsProps) {
   return (
     <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
@@ -40,31 +42,33 @@ export function Controls({
         นิพจน์ปัจจุบัน: a<sup>m/n</sup> = {a}^({m}/{n})
       </p>
 
-      <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
-        <h3 className="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-          เปรียบเทียบกราฟ (ฟีเจอร์เสริมความเข้าใจ)
-        </h3>
-        <div className="flex flex-col gap-2">
-          <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
-            <input
-              type="checkbox"
-              checked={showPowerOverlay}
-              onChange={(e) => onToggleShowPowerOverlay(e.target.checked)}
-              className="h-4 w-4 accent-amber-500"
-            />
-            แสดง f(x) = x<sup>m</sup> (ยกกำลังอย่างเดียว)
-          </label>
-          <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
-            <input
-              type="checkbox"
-              checked={showRootOverlay}
-              onChange={(e) => onToggleShowRootOverlay(e.target.checked)}
-              className="h-4 w-4 accent-rose-500"
-            />
-            แสดง f(x) = <sup>n</sup>√x (ถอดรากอย่างเดียว)
-          </label>
+      {showOverlaySection && (
+        <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
+          <h3 className="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+            เปรียบเทียบกราฟ (ฟีเจอร์เสริมความเข้าใจ)
+          </h3>
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <input
+                type="checkbox"
+                checked={showPowerOverlay}
+                onChange={(e) => onToggleShowPowerOverlay(e.target.checked)}
+                className="h-4 w-4 accent-amber-500"
+              />
+              แสดง f(x) = x<sup>m</sup> (ยกกำลังอย่างเดียว)
+            </label>
+            <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <input
+                type="checkbox"
+                checked={showRootOverlay}
+                onChange={(e) => onToggleShowRootOverlay(e.target.checked)}
+                className="h-4 w-4 accent-rose-500"
+              />
+              แสดง f(x) = <sup>n</sup>√x (ถอดรากอย่างเดียว)
+            </label>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

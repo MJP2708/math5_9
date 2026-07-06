@@ -1,5 +1,5 @@
 import { Math } from "./Math";
-import type { RationalExponentResult } from "../lib/rationalExponent";
+import { HUGE_RESULT_NOTE, type RationalExponentResult } from "../lib/rationalExponent";
 
 interface StepByStepPanelProps {
   result: RationalExponentResult;
@@ -41,7 +41,7 @@ export function StepByStepPanel({ result }: StepByStepPanelProps) {
       {(!result.isExact || result.isHuge) && (
         <p className="text-xs text-slate-500 dark:text-slate-400">
           {!result.isExact && "* ผลลัพธ์นี้เป็นจำนวนอตรรกยะ จึงแสดงเป็นค่าประมาณ (≈) ไม่ใช่ค่าที่แท้จริงทั้งหมด "}
-          {result.isHuge && "* ผลลัพธ์มีขนาดใหญ่มาก ค่าที่แสดงอาจถูกปัดเศษหรือย่อรูปเพื่อความชัดเจน"}
+          {result.isHuge && `* ${HUGE_RESULT_NOTE}`}
         </p>
       )}
     </div>

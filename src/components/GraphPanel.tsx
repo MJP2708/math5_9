@@ -1,9 +1,6 @@
 import { useMemo } from "react";
-import createPlotlyComponent from "react-plotly.js/factory";
-import Plotly from "plotly.js-basic-dist-min";
+import { Plot } from "../lib/plotly";
 import { evaluateFloatForGraph, simplifyFraction } from "../lib/rationalExponent";
-
-const Plot = createPlotlyComponent(Plotly);
 
 const X_MIN = -10;
 const X_MAX = 10;

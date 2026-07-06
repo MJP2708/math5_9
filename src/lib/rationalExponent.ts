@@ -362,3 +362,37 @@ export function simplifyFraction(m: number, n: number): { m: number; n: number }
   const g = gcdInt(m, n);
   return { m: m / g, n: n / g };
 }
+
+/** Shared wording so every "result is huge" note in the app (step panel, challenge mode, ...) reads identically. */
+export const HUGE_RESULT_NOTE = "ผลลัพธ์มีขนาดใหญ่มาก ค่าที่แสดงอาจถูกปัดเศษหรือย่อรูปเพื่อความชัดเจน";
+
+/**
+ * Evaluates f(x) = x^(m/n) over a grid of x values for a fixed denominator n, sweeping the
+ * numerator m across `ms`. Used to build a 3D surface (x, m, z) at constant n — reuses
+ * evaluateFloatForGraph point-by-point so the surface obeys the exact same domain rules
+ * (NaN gaps) as the 2D graph.
+ */
+export function evaluateSurfaceGrid(xs: number[], ms: number[], n: number): number[][] {
+  return ms.map((m) => xs.map((x) => evaluateFloatForGraph(x, m, n)));
+}
+
+/**
+ * Truncates a target real number (e.g. an irrational constant) into a sequence of rational
+ * approximations m/n with n = 1, 10, 100, ..., 10^(steps-1), each formed by chopping the
+ * decimal expansion to one more digit than the last. Each {m, n} is an exact fraction that can
+ * be fed straight into computeRationalExponent — this is what lets the "rational approaches
+ * irrational" bridge reuse the existing engine unmodified.
+ */
+export function rationalApproximationSequence(
+  target: Decimal | string | number,
+  steps: number
+): { m: number; n: number }[] {
+  const t = target instanceof Decimal ? target : new Decimal(target);
+  const sequence: { m: number; n: number }[] = [];
+  for (let k = 0; k < steps; k++) {
+    const n = 10 ** k;
+    const m = Number(t.times(n).trunc().toFixed(0));
+    sequence.push({ m, n });
+  }
+  return sequence;
+}

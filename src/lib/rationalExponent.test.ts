@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { computeRationalExponent, evaluateFloatForGraph, simplifyFraction } from "./rationalExponent";
+import {
+  computeRationalExponent,
+  evaluateFloatForGraph,
+  evaluateSurfaceGrid,
+  rationalApproximationSequence,
+  simplifyFraction,
+} from "./rationalExponent";
 
 describe("computeRationalExponent", () => {
   it("computes a normal perfect-power case exactly: 8^(2/3) = 4", () => {
@@ -128,5 +134,59 @@ describe("simplifyFraction", () => {
 
   it("normalizes a negative denominator", () => {
     expect(simplifyFraction(3, -2)).toEqual({ m: -3, n: 2 });
+  });
+});
+
+describe("evaluateSurfaceGrid", () => {
+  it("matches evaluateFloatForGraph point-by-point", () => {
+    const xs = [-4, 0, 4, 9];
+    const ms = [1, 2, 3];
+    const n = 2;
+    const grid = evaluateSurfaceGrid(xs, ms, n);
+    for (let i = 0; i < ms.length; i++) {
+      for (let j = 0; j < xs.length; j++) {
+        const expected = evaluateFloatForGraph(xs[j], ms[i], n);
+        if (Number.isNaN(expected)) {
+          expect(Number.isNaN(grid[i][j])).toBe(true);
+        } else {
+          expect(grid[i][j]).toBeCloseTo(expected, 9);
+        }
+      }
+    }
+  });
+
+  it("carries domain gaps (NaN) for negative x with even n", () => {
+    const grid = evaluateSurfaceGrid([-9], [1], 2);
+    expect(Number.isNaN(grid[0][0])).toBe(true);
+  });
+});
+
+describe("rationalApproximationSequence", () => {
+  it("truncates sqrt(2) into a sequence of exact fractions converging toward it", () => {
+    const seq = rationalApproximationSequence(Math.sqrt(2).toString(), 5);
+    expect(seq).toEqual([
+      { m: 1, n: 1 },
+      { m: 14, n: 10 },
+      { m: 141, n: 100 },
+      { m: 1414, n: 1000 },
+      { m: 14142, n: 10000 },
+    ]);
+  });
+
+  it("each step's decimal value gets strictly closer to the target", () => {
+    const target = Math.PI;
+    const seq = rationalApproximationSequence(target.toString(), 5);
+    const errors = seq.map(({ m, n }) => Math.abs(m / n - target));
+    for (let i = 1; i < errors.length; i++) {
+      expect(errors[i]).toBeLessThan(errors[i - 1]);
+    }
+  });
+
+  it("every generated fraction runs through computeRationalExponent without error", () => {
+    const seq = rationalApproximationSequence(Math.E.toString(), 4);
+    for (const { m, n } of seq) {
+      const result = computeRationalExponent(2, m, n);
+      expect(result.kind).toBe("value");
+    }
   });
 });
