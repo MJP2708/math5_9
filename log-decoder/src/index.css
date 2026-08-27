@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+:root {
+  color-scheme: dark;
+  --bg: #0b0e14;
+  --bg-panel: #10141d;
+  --bg-panel-2: #151a25;
+  --border: #232a38;
+  --text: #d7dde8;
+  --text-dim: #8892a4;
+  --accent: #35e0a1;
+  --accent-2: #35b8e0;
+  --danger: #ff6b6b;
+  --warn: #ffb454;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Noto Sans Thai', system-ui, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* กันไม่ให้สระบน/ล่าง และวรรณยุกต์ภาษาไทยถูกตัด ในทุก breakpoint */
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+button,
+input,
+label,
+li,
+td,
+th {
+  overflow: visible;
+}
+
+.font-mono-th {
+  font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
+}
+
+.katex {
+  font-size: 1.05em;
+}
+
+::selection {
+  background: var(--accent);
+  color: #06120c;
+}
+
+/* scrollbar แบบ decoder terminal */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+}
