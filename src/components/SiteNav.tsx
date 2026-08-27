@@ -4,6 +4,7 @@ const LINKS: { route: Route; href: string; label: string }[] = [
   { route: "home", href: "#/", label: "เครื่องคำนวณ" },
   { route: "math-logic", href: "#/math-logic", label: "หลักการทางคณิตศาสตร์" },
   { route: "dev-story", href: "#/dev-story", label: "เบื้องหลังการพัฒนา" },
+  { route: "log-decoder", href: "#/log-decoder", label: "Log-Decoder: ถอดรหัสลอการิทึม" },
 ];
 
 interface SiteNavProps {

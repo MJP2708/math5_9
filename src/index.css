@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 @layer base {
@@ -9,4 +10,39 @@
     margin: 0;
     color-scheme: light dark;
   }
+}
+
+/* Log-Decoder theme tokens, remapped onto the shared slate light/dark palette
+   so the feature respects the same automatic (prefers-color-scheme) dark mode
+   as the rest of the app instead of its old standalone dark-only theme. */
+.log-decoder {
+  --bg: transparent;
+  --bg-panel: #ffffff;
+  --bg-panel-2: #f1f5f9; /* slate-100 */
+  --border: #e2e8f0; /* slate-200 */
+  --text: #0f172a; /* slate-900 */
+  --text-dim: #64748b; /* slate-500 */
+  --accent: #0f766e; /* teal-700, readable on light bg */
+  --accent-2: #0369a1; /* sky-700 */
+  --danger: #dc2626;
+  --warn: #b45309;
+}
+
+@media (prefers-color-scheme: dark) {
+  .log-decoder {
+    --bg: transparent;
+    --bg-panel: #0f172a; /* slate-900 */
+    --bg-panel-2: #151a25;
+    --border: #334155; /* slate-700 */
+    --text: #e2e8f0; /* slate-200 */
+    --text-dim: #94a3b8; /* slate-400 */
+    --accent: #35e0a1;
+    --accent-2: #35b8e0;
+    --danger: #ff6b6b;
+    --warn: #ffb454;
+  }
+}
+
+.log-decoder .font-mono-th {
+  font-family: "IBM Plex Mono", "IBM Plex Sans Thai", monospace;
 }

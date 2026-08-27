@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
+    "@types/katex": "^0.16.8",
     "decimal.js": "^10.6.0",
     "katex": "^0.16.47",
+    "mathjs": "^15.2.0",
     "plotly.js-dist-min": "^3.7.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -26,6 +28,7 @@
     "@types/react-dom": "^19.2.3",
     "@types/react-plotly.js": "^2.6.4",
     "@vitejs/plugin-react": "^6.0.3",
+    "jsdom": "^30.0.1",
     "oxlint": "^1.71.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",

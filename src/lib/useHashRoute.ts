@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
-export type Route = "home" | "math-logic" | "dev-story";
+export type Route = "home" | "math-logic" | "dev-story" | "log-decoder";
 
 function parseHash(): Route {
   const hash = window.location.hash.replace(/^#\/?/, "");
   if (hash === "math-logic") return "math-logic";
   if (hash === "dev-story") return "dev-story";
+  if (hash === "log-decoder") return "log-decoder";
   return "home";
 }
 
